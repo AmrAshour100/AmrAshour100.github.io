@@ -380,6 +380,18 @@
 
         document.addEventListener('DOMContentLoaded', setupUI);
 
-    </script>
+    const shareBtn = document.getElementById('share-btn');
+shareBtn.addEventListener('click', () => {
+    if (navigator.share) {
+        navigator.share({
+            title: 'أداة السلالم والمقامات',
+            text: 'اكتشفت أداة موسيقية رائعة ومجانية للمقامات والسلالم، جربها!',
+            url: window.location.href
+        }).catch(console.error);
+    } else {
+        // Fallback for browsers that don't support navigator.share
+        alert('خاصية المشاركة غير مدعومة في هذا المتصفح، يمكنك نسخ الرابط يدويًا.');
+    }
+});
 </body>
 </html>
