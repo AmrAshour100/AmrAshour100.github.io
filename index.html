@@ -114,142 +114,180 @@
     <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50">الرجاء نسخ الرابط من شريط العنوان لمشاركته.</div>
 
     <script>
-        const offlineData = {
-            "Major": { description: "السلم الكبير هو أساس الموسيقى الغربية، يتميز بطابعه السعيد، المشرق والبطولي. هو السلم الأكثر شيوعًا في أغاني البوب والموسيقى الكلاسيكية." },
-            "minor": { description: "السلم الصغير (الهارموني) يتميز بطابعه الحزين، الدرامي، والكلاسيكي. يستخدم بكثرة في الموسيقى التي تعبر عن مشاعر الشوق والعمق." },
-            "راست": { description: "مقام الراست هو 'أبو المقامات' ويتميز بالفخامة والوقار والجدية. هو مقام شرقي أصيل يعبر عن الأصالة والقوة.", quarterToneNote: "تتميز الدرجة الثالثة (مثل مي نصف بيمول) والسابعة (مثل سي نصف بيمول) بوجود الربع تون." },
-            "بياتي": { description: "مقام البياتي يعبر عن الشجن والحزن الممزوج بالفرح. له طابع ريفي وشعبي أصيل، ويدخل في الكثير من الأغاني العاطفية والمواويل.", quarterToneNote: "تتميز الدرجة الثانية (مثل ري نصف بيمول) بوجود الربع تون، وهي التي تعطيه طابعه الشجي المميز." },
-            "حجاز": { description: "مقام الحجاز له طابع شرقي صحراوي واضح جدًا. يوحي بالروحانية، الشوق، والحنين. أبعاده المميزة (الثانية الزائدة) تجعله سهل التعرف عليه." },
-            "نهاوند": { description: "مقام النهاوند هو المقابل الشرقي للسلم الصغير (الماينور). يتميز بطابعه الرومانسي، الحالم، والعاطفي الجياش." },
-            "كرد": { description: "مقام الكرد يشبه في طابعه مقام النهاوند لكنه أكثر بساطة وعاطفية مباشرة. يعبر عن مشاعر هادئة، حزينة أو حالمة." },
-            "عجم": { description: "مقام العجم هو المقابل الشرقي للسلم الكبير (الميجور). طابعه هو الفرح، الإشراق، والوضوح، ويستخدم في الأناشيد الوطنية والأغاني المبهجة." },
-            "صبا": { description: "مقام الصبا هو أكثر المقامات حزنًا وأسى. يعبر عن ألم الفراق والأسى العميق. له طابع خاص جدًا ومؤثر للغاية.", quarterToneNote: "يتميز بأبعاده الدقيقة والخاصة التي لا تعتمد على الربع تون الثابت، مما يعطيه طابعه الحزين الفريد." },
-            "سيكاه": { description: "مقام السيكاه هو مقام يوحي بالطرب الأصيل والتمهل. له طابع مريح ومستقر، وكثيرًا ما يستخدم في الموشحات والقصائد.", quarterToneNote: "تتميز درجة ركوزه نفسها بوجود ربع تون (مثل المي نصف بيمول)." }
-        };
-        const notes = [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ];
-        const scaleTypes = { "سلالم غربية": [ { name: "Major" }, { name: "minor" } ], "مقامات شرقية": [ { name: "راست" }, { name: "بياتي" }, { name: "حجاز" }, { name: "نهاوند" }, { name: "كرد" }, { name: "عجم" }, { name: "صبا" }, { name: "سيكاه" } ] };
-        
-        const fromTypeSelect = document.getElementById('from-type');
-        const fromKeySelect = document.getElementById('from-key');
-        const toTypeSelect = document.getElementById('to-type');
-        const toKeySelect = document.getElementById('to-key');
-        const transposeResultDiv = document.getElementById('transpose-result');
-        const aiTypeSelect = document.getElementById('ai-type');
-        const aiKeySelect = document.getElementById('ai-key');
-        const aiResultDiv = document.getElementById('ai-result');
-        const relativeScaleSelect = document.getElementById('relative-scale-select');
-        const relativeResultDiv = document.getElementById('relative-result');
-        const majorModeBtn = document.getElementById('major-mode-btn');
-        const minorModeBtn = document.getElementById('minor-mode-btn');
-        let currentRelativeMode = 'major';
+        document.addEventListener('DOMContentLoaded', () => {
+            const offlineData = {
+                "Major": { description: "السلم الكبير هو أساس الموسيقى الغربية، يتميز بطابعه السعيد، المشرق والبطولي. هو السلم الأكثر شيوعًا في أغاني البوب والموسيقى الكلاسيكية." },
+                "minor": { description: "السلم الصغير (الهارموني) يتميز بطابعه الحزين، الدرامي، والكلاسيكي. يستخدم بكثرة في الموسيقى التي تعبر عن مشاعر الشوق والعمق." },
+                "راست": { description: "مقام الراست هو 'أبو المقامات' ويتميز بالفخامة والوقار والجدية. هو مقام شرقي أصيل يعبر عن الأصالة والقوة.", quarterToneNote: "تتميز الدرجة الثالثة (مثل مي نصف بيمول) والسابعة (مثل سي نصف بيمول) بوجود الربع تون." },
+                "بياتي": { description: "مقام البياتي يعبر عن الشجن والحزن الممزوج بالفرح. له طابع ريفي وشعبي أصيل، ويدخل في الكثير من الأغاني العاطفية والمواويل.", quarterToneNote: "تتميز الدرجة الثانية (مثل ري نصف بيمول) بوجود الربع تون، وهي التي تعطيه طابعه الشجي المميز." },
+                "حجاز": { description: "مقام الحجاز له طابع شرقي صحراوي واضح جدًا. يوحي بالروحانية، الشوق، والحنين. أبعاده المميزة (الثانية الزائدة) تجعله سهل التعرف عليه." },
+                "نهاوند": { description: "مقام النهاوند هو المقابل الشرقي للسلم الصغير (الماينور). يتميز بطابعه الرومانسي، الحالم، والعاطفي الجياش." },
+                "كرد": { description: "مقام الكرد يشبه في طابعه مقام النهاوند لكنه أكثر بساطة وعاطفية مباشرة. يعبر عن مشاعر هادئة، حزينة أو حالمة." },
+                "عجم": { description: "مقام العجم هو المقابل الشرقي للسلم الكبير (الميجور). طابعه هو الفرح، الإشراق، والوضوح، ويستخدم في الأناشيد الوطنية والأغاني المبهجة." },
+                "صبا": { description: "مقام الصبا هو أكثر المقامات حزنًا وأسى. يعبر عن ألم الفراق والأسى العميق. له طابع خاص جدًا ومؤثر للغاية.", quarterToneNote: "يتميز بأبعاده الدقيقة والخاصة التي لا تعتمد على الربع تون الثابت، مما يعطيه طابعه الحزين الفريد." },
+                "سيكاه": { description: "مقام السيكاه هو مقام يوحي بالطرب الأصيل والتمهل. له طابع مريح ومستقر، وكثيرًا ما يستخدم في الموشحات والقصائد.", quarterToneNote: "تتميز درجة ركوزه نفسها بوجود ربع تون (مثل المي نصف بيمول)." }
+            };
+            const notes = [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ];
+            const scaleTypes = { "سلالم غربية": [ { name: "Major" }, { name: "minor" } ], "مقامات شرقية": [ { name: "راست" }, { name: "بياتي" }, { name: "حجاز" }, { name: "نهاوند" }, { name: "كرد" }, { name: "عجم" }, { name: "صبا" }, { name: "سيكاه" } ] };
+            
+            const fromTypeSelect = document.getElementById('from-type');
+            const fromKeySelect = document.getElementById('from-key');
+            const toTypeSelect = document.getElementById('to-type');
+            const toKeySelect = document.getElementById('to-key');
+            const transposeResultDiv = document.getElementById('transpose-result');
+            const aiTypeSelect = document.getElementById('ai-type');
+            const aiKeySelect = document.getElementById('ai-key');
+            const aiResultDiv = document.getElementById('ai-result');
+            const relativeScaleSelect = document.getElementById('relative-scale-select');
+            const relativeResultDiv = document.getElementById('relative-result');
+            const majorModeBtn = document.getElementById('major-mode-btn');
+            const minorModeBtn = document.getElementById('minor-mode-btn');
+            let currentRelativeMode = 'major';
 
-        function displayAiInfo() {
-            const scaleType = aiTypeSelect.value;
-            const keyName = aiKeySelect.options[aiKeySelect.selectedIndex].text;
-            const data = offlineData[scaleType];
-            const fullName = getFullName(scaleType, keyName);
-            if (data) {
-                let quarterToneInfo = '';
-                if (data.quarterToneNote) {
-                    quarterToneInfo = `<h5 class="quarter-tone-title">الربع تون (التشريق):</h5><p>${data.quarterToneNote}</p>`;
+            function getFullName(typeText, keyText) {
+                return `${typeText.startsWith("مقام") ? 'مقام' : 'سلم'} ${typeText} على ${keyText}`;
+            }
+
+            function populateTypeSelect(selectElement) {
+                selectElement.innerHTML = '';
+                for (const groupName in scaleTypes) {
+                    const optgroup = document.createElement('optgroup');
+                    optgroup.label = groupName;
+                    scaleTypes[groupName].forEach(type => {
+                        const option = document.createElement('option');
+                        option.value = type.name;
+                        option.textContent = type.name;
+                        optgroup.appendChild(option);
+                    });
+                    selectElement.appendChild(optgroup);
                 }
-                aiResultDiv.innerHTML = `<div class="text-right w-full ai-output"><h4>معلومات عن: ${fullName}</h4><p>${data.description}</p>${quarterToneInfo}</div>`;
-            } else {
-                aiResultDiv.innerHTML = `<p class="text-gray-400 text-center">لا توجد معلومات متاحة حاليًا.</p>`;
             }
-        }
 
-        function populateTypeSelect(selectElement) {
-            selectElement.innerHTML = '';
-            for (const groupName in scaleTypes) {
-                const optgroup = document.createElement('optgroup');
-                optgroup.label = groupName;
-                scaleTypes[groupName].forEach(type => {
+            function populateKeySelect(selectElement) {
+                selectElement.innerHTML = '';
+                notes.forEach(note => {
                     const option = document.createElement('option');
-                    option.value = type.name;
-                    option.textContent = type.name;
-                    optgroup.appendChild(option);
+                    option.value = note.value;
+                    option.textContent = note.name;
+                    selectElement.appendChild(option);
                 });
-                selectElement.appendChild(optgroup);
             }
-        }
 
-        function populateKeySelect(selectElement) {
-            selectElement.innerHTML = '';
-            notes.forEach(note => {
-                const option = document.createElement('option');
-                option.value = note.value;
-                option.textContent = note.name;
-                selectElement.appendChild(option);
+            const westernScalesForRelative = {
+                major: notes.map(n => ({ name: `${n.name} Major`, value: n.value })),
+                minor: notes.map(n => ({ name: `${n.name} minor`, value: n.value }))
+            };
+
+            function populateSimpleSelect(selectElement, scaleArray) {
+                selectElement.innerHTML = '';
+                scaleArray.forEach(scale => {
+                    const option = document.createElement('option');
+                    option.value = scale.value;
+                    option.textContent = scale.name;
+                    selectElement.appendChild(option);
+                });
+            }
+
+            function calculateTranspose() {
+                if (!fromKeySelect.options || fromKeySelect.options.length === 0) return;
+                const fromKeyValue = parseInt(fromKeySelect.value);
+                const toKeyValue = parseInt(toKeySelect.value);
+                const fromTypeText = fromTypeSelect.options[fromTypeSelect.selectedIndex].text;
+                const fromKeyText = fromKeySelect.options[fromKeySelect.selectedIndex].text;
+                const toTypeText = toTypeSelect.options[toTypeSelect.selectedIndex].text;
+                const toKeyText = toKeySelect.options[toKeySelect.selectedIndex].text;
+                let difference = toKeyValue - fromKeyValue;
+                const semitonesUp = difference >= 0 ? difference : difference + 12;
+                const semitonesDown = difference <= 0 ? -difference : 12 - difference;
+                const fromFullName = getFullName(fromTypeText, fromKeyText);
+                const toFullName = getFullName(toTypeText, toKeyText);
+                transposeResultDiv.innerHTML = `<div class="text-xl"><p class="mb-2">للإنتقال من <strong class="text-blue-300">${fromFullName}</strong> إلى <strong class="text-blue-300">${toFullName}</strong>:</p><div class="flex flex-col sm:flex-row justify-center gap-4 text-2xl font-bold mt-4"><span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▲ ${semitonesUp} نصف تون صعوداً</span><span class="bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▼ ${semitonesDown} نصف تون هبوطاً</span></div></div>`;
+            }
+
+            function findRelative() {
+                if (!relativeScaleSelect.options || relativeScaleSelect.options.length === 0) return;
+                const selectedValue = parseInt(relativeScaleSelect.value);
+                const originalName = relativeScaleSelect.options[relativeScaleSelect.selectedIndex].text;
+                let relativeValue, relativeName;
+                if (currentRelativeMode === 'major') {
+                    relativeValue = (selectedValue - 3 + 12) % 12;
+                    relativeName = westernScalesForRelative.minor.find(s => s.value === relativeValue).name;
+                } else {
+                    relativeValue = (selectedValue + 3) % 12;
+                    relativeName = westernScalesForRelative.major.find(s => s.value === relativeValue).name;
+                }
+                relativeResultDiv.innerHTML = `<div class="text-xl"><p>السلم النسبي لـ <strong class="text-blue-300">${originalName}</strong></p><p class="text-3xl font-bold mt-2 text-green-400">${relativeName}</p></div>`;
+            }
+
+            function displayAiInfo() {
+                if (!aiKeySelect.options || aiKeySelect.options.length === 0) return;
+                const scaleType = aiTypeSelect.value;
+                const keyName = aiKeySelect.options[aiKeySelect.selectedIndex].text;
+                const data = offlineData[scaleType];
+                const fullName = getFullName(scaleType, keyName);
+                if (data) {
+                    let quarterToneInfo = '';
+                    if (data.quarterToneNote) {
+                        quarterToneInfo = `<h5 class="quarter-tone-title">الربع تون (التشريق):</h5><p>${data.quarterToneNote}</p>`;
+                    }
+                    aiResultDiv.innerHTML = `<div class="text-right w-full ai-output"><h4>معلومات عن: ${fullName}</h4><p>${data.description}</p>${quarterToneInfo}</div>`;
+                } else {
+                    aiResultDiv.innerHTML = `<p class="text-gray-400 text-center">لا توجد معلومات متاحة حاليًا.</p>`;
+                }
+            }
+
+            function switchRelativeMode(mode) {
+                currentRelativeMode = mode;
+                if (mode === 'major') {
+                    majorModeBtn.classList.add('bg-blue-500', 'text-white');
+                    majorModeBtn.classList.remove('text-gray-300');
+                    minorModeBtn.classList.remove('bg-blue-500', 'text-white');
+                    minorModeBtn.classList.add('text-gray-300');
+                    populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
+                } else {
+                    minorModeBtn.classList.add('bg-blue-500', 'text-white');
+                    minorModeBtn.classList.remove('text-gray-300');
+                    majorModeBtn.classList.remove('bg-blue-500', 'text-white');
+                    majorModeBtn.classList.add('text-gray-300');
+                    populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.minor);
+                }
+                findRelative();
+            }
+            
+            // Initial Setup
+            populateTypeSelect(fromTypeSelect);
+            populateTypeSelect(toTypeSelect);
+            populateTypeSelect(aiTypeSelect);
+            populateKeySelect(fromKeySelect);
+            populateKeySelect(toKeySelect);
+            populateKeySelect(aiKeySelect);
+            populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
+
+            [fromTypeSelect, fromKeySelect, toTypeSelect, toKeySelect].forEach(sel => { sel.addEventListener('change', calculateTranspose); });
+            [aiTypeSelect, aiKeySelect].forEach(sel => { sel.addEventListener('change', displayAiInfo); });
+            relativeScaleSelect.addEventListener('change', findRelative);
+            majorModeBtn.addEventListener('click', () => switchRelativeMode('major'));
+            minorModeBtn.addEventListener('click', () => switchRelativeMode('minor'));
+            
+            const shareBtn = document.getElementById('share-btn');
+            const fallbackMessage = document.getElementById('fallback-message');
+            shareBtn.addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'أداة السلالم والمقامات',
+                        text: 'اكتشفت أداة موسيقية مجانية ورائعة للمقامات والسلالم، جربها!',
+                        url: window.location.href
+                    }).catch(console.error);
+                } else {
+                    fallbackMessage.classList.remove('hidden');
+                    setTimeout(() => { fallbackMessage.classList.add('hidden'); }, 3000);
+                }
             });
-        }
 
-        function getFullName(typeText, keyText) {
-            return `${typeText.startsWith("مقام") ? 'مقام' : 'سلم'} ${typeText} على ${keyText}`;
-        }
-
-        function calculateTranspose() {
-            const fromKeyValue = parseInt(fromKeySelect.value);
-            const toKeyValue = parseInt(toKeySelect.value);
-            const fromTypeText = fromTypeSelect.options[fromTypeSelect.selectedIndex].text;
-            const fromKeyText = fromKeySelect.options[fromKeySelect.selectedIndex].text;
-            const toTypeText = toTypeSelect.options[toTypeSelect.selectedIndex].text;
-            const toKeyText = toKeySelect.options[toKeySelect.selectedIndex].text;
-            let difference = toKeyValue - fromKeyValue;
-            const semitonesUp = difference >= 0 ? difference : difference + 12;
-            const semitonesDown = difference <= 0 ? -difference : 12 - difference;
-            const fromFullName = getFullName(fromTypeText, fromKeyText);
-            const toFullName = getFullName(toTypeText, toKeyText);
-            transposeResultDiv.innerHTML = `<div class="text-xl"><p class="mb-2">للإنتقال من <strong class="text-blue-300">${fromFullName}</strong> إلى <strong class="text-blue-300">${toFullName}</strong>:</p><div class="flex flex-col sm:flex-row justify-center gap-4 text-2xl font-bold mt-4"><span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▲ ${semitonesUp} نصف تون صعوداً</span><span class="bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▼ ${semitonesDown} نصف تون هبوطاً</span></div></div>`;
-        }
-
-        const westernScalesForRelative = {
-            major: notes.map(n => ({ name: `${n.name} Major`, value: n.value })),
-            minor: notes.map(n => ({ name: `${n.name} minor`, value: n.value }))
-        };
-
-        function populateSimpleSelect(selectElement, scaleArray) {
-            selectElement.innerHTML = '';
-            scaleArray.forEach(scale => {
-                const option = document.createElement('option');
-                option.value = scale.value;
-                option.textContent = scale.name;
-                selectElement.appendChild(option);
-            });
-        }
-
-        function findRelative() {
-            const selectedValue = parseInt(relativeScaleSelect.value);
-            let relativeValue, relativeName, originalName;
-            originalName = relativeScaleSelect.options[relativeScaleSelect.selectedIndex].text;
-            if (currentRelativeMode === 'major') {
-                relativeValue = (selectedValue - 3 + 12) % 12;
-                relativeName = westernScalesForRelative.minor.find(s => s.value === relativeValue).name;
-            } else {
-                relativeValue = (selectedValue + 3) % 12;
-                relativeName = westernScalesForRelative.major.find(s => s.value === relativeValue).name;
-            }
-            relativeResultDiv.innerHTML = `<div class="text-xl"><p>السلم النسبي لـ <strong class="text-blue-300">${originalName}</strong></p><p class="text-3xl font-bold mt-2 text-green-400">${relativeName}</p></div>`;
-        }
-
-        function switchRelativeMode(mode) {
-            currentRelativeMode = mode;
-            if (mode === 'major') {
-                majorModeBtn.classList.add('bg-blue-500', 'text-white');
-                majorModeBtn.classList.remove('text-gray-300');
-                minorModeBtn.classList.remove('bg-blue-500', 'text-white');
-                minorModeBtn.classList.add('text-gray-300');
-            } else {
-                minorModeBtn.classList.add('bg-blue-500', 'text-white');
-                minorModeBtn.classList.remove('text-gray-300');
-                majorModeBtn.classList.remove('bg-blue-500', 'text-white');
-                majorModeBtn.classList.add('text-gray-300');
-            }
-            updateRelativeSelect();
-        }
-
-        function updateRelativeSelect() {
-            if (currentRelativeMode === 'major') {
-                populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
-            } else {
-                populateSimpleSelec
+            calculateTranspose();
+            displayAiInfo();
+            findRelative();
+        });
+    </script>
+</body>
+</html>
