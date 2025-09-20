@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+<!-- The lang and dir attributes will be set by JavaScript -->
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أداة السلالم والمقامات | مساعدك الموسيقي</title>
+    <title data-translate-key="pageTitle">أداة السلالم والمقامات | مساعدك الموسيقي</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="أداة موسيقية متكاملة لحساب الانتقال النغمي بين السلالم والمقامات، اكتشاف السلم النسبي، وموسوعة شاملة للمقامات الشرقية وخصائصها.">
-    <meta name="keywords" content="موسيقى, مقامات, سلالم, نظريات موسيقية, تحليل موسيقي, ربع تون, حجاز, راست, بياتي, نهاوند, transpose, relative minor, عمرو عاشور">
+    <meta name="keywords" content="music, maqam, scale, music theory, analysis, quarter tone, hijaz, rast, bayati, nahawand, transpose, relative minor, Amr Ashour, موسيقى, مقامات, سلالم, نظريات موسيقية, تحليل موسيقي, ربع تون, عمرو عاشور">
 
     <!-- Google Analytics (استبدل G-XXXXXXXXXX بالمعرف الخاص بك) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -21,9 +22,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Cairo', sans-serif; background-color: #111827; }
+        body { background-color: #111827; }
+        html[lang="ar"] body { font-family: 'Cairo', sans-serif; }
+        html[lang="en"] body { font-family: 'Poppins', sans-serif; }
         .output-box { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); min-height: 100px; transition: all 0.3s ease; }
         select, .output-box, button { -webkit-tap-highlight-color: transparent; }
         .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
@@ -31,42 +34,51 @@
         .ai-output p { font-size: 1.125rem; line-height: 1.8; }
         .ai-output .quarter-tone-title { font-size: 1.125rem; font-weight: 600; color: #5eead4; margin-top: 1rem; margin-bottom: 0.25rem; padding-top: 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .logo-icon { width: 40px; height: 40px; fill: #60a5fa; }
+        .lang-btn.active { background-color: #3b82f6; color: white; }
     </style>
 </head>
 <body class="text-white">
+
+    <div class="absolute top-4 right-4 z-10" id="lang-switcher-container">
+        <div class="flex items-center bg-gray-700 rounded-full p-1 text-sm">
+            <button id="lang-ar" class="lang-btn px-3 py-1 rounded-full" data-lang="ar">AR</button>
+            <button id="lang-en" class="lang-btn px-3 py-1 rounded-full" data-lang="en">EN</button>
+        </div>
+    </div>
+
     <div class="container mx-auto p-4 sm:p-6 max-w-4xl">
 
-        <header class="text-center mb-8">
+        <header class="text-center mb-8 pt-12 sm:pt-0">
             <div class="flex items-center justify-center gap-3">
                 <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4V3h-6z"/></svg>
-                <h1 class="text-3xl sm:text-4xl font-bold text-blue-400">أداة السلالم والمقامات</h1>
+                <h1 class="text-3xl sm:text-4xl font-bold text-blue-400" data-translate-key="headerTitle">أداة السلالم والمقامات</h1>
             </div>
-            <p class="text-gray-400 mt-2 text-lg">مساعدك الموسيقي لتحليل النظريات بسهولة</p>
+            <p class="text-gray-400 mt-2 text-lg" data-translate-key="headerSubtitle">مساعدك الموسيقي لتحليل النظريات بسهولة</p>
         </header>
 
         <div class="text-center mb-8">
             <button id="share-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-5 rounded-full transition duration-300 flex items-center gap-2 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" /></svg>
-                <span>شارك الأداة</span>
+                <span data-translate-key="shareBtn">شارك الأداة</span>
             </button>
         </div>
 
         <main class="space-y-8">
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3">حاسبة الانتقال النغمي (Transpose)</h2>
+                <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3" data-translate-key="transposeTitle">حاسبة الانتقال النغمي (Transpose)</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                        <h3 class="text-xl font-semibold text-center mb-4 text-gray-300">من:</h3>
+                        <h3 class="text-xl font-semibold text-center mb-4 text-gray-300" data-translate-key="from">من:</h3>
                         <div class="grid-container">
-                            <div><label for="from-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="from-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
-                            <div><label for="from-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="from-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                            <div><label for="from-type" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="type">النوع</label><select id="from-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                            <div><label for="from-key" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="key">الدرجة</label><select id="from-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                         </div>
                     </div>
                     <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
-                        <h3 class="text-xl font-semibold text-center mb-4 text-gray-300">إلى:</h3>
+                        <h3 class="text-xl font-semibold text-center mb-4 text-gray-300" data-translate-key="to">إلى:</h3>
                         <div class="grid-container">
-                             <div><label for="to-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="to-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
-                            <div><label for="to-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="to-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                             <div><label for="to-type" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="type">النوع</label><select id="to-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                            <div><label for="to-key" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="key">الدرجة</label><select id="to-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                         </div>
                     </div>
                 </div>
@@ -74,11 +86,11 @@
             </div>
 
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
-                <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3">مكتشف السلم النسبي (Major/minor)</h2>
+                <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3" data-translate-key="relativeTitle">مكتشف السلم النسبي (Major/minor)</h2>
                 <div class="flex justify-center mb-4">
                     <div class="inline-flex rounded-lg bg-gray-700 p-1">
-                        <button id="major-mode-btn" class="px-6 py-2 rounded-md text-lg font-semibold bg-blue-500 text-white">كبير (Major)</button>
-                        <button id="minor-mode-btn" class="px-6 py-2 rounded-md text-lg font-semibold text-gray-300">صغير (Minor)</button>
+                        <button id="major-mode-btn" class="px-6 py-2 rounded-md text-lg font-semibold" data-translate-key="major">كبير (Major)</button>
+                        <button id="minor-mode-btn" class="px-6 py-2 rounded-md text-lg font-semibold" data-translate-key="minor">صغير (Minor)</button>
                     </div>
                 </div>
                 <select id="relative-scale-select" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
@@ -86,207 +98,170 @@
             </div>
 
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg border-2 border-indigo-500/50">
-                <h2 class="text-2xl font-semibold mb-5 text-center text-indigo-300 border-b-2 border-gray-700 pb-3">✨ موسوعة المقامات والسلالم</h2>
+                <h2 class="text-2xl font-semibold mb-5 text-center text-indigo-300 border-b-2 border-gray-700 pb-3" data-translate-key="encyclopediaTitle">✨ موسوعة المقامات والسلالم</h2>
                 <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700 max-w-lg mx-auto">
                      <div class="grid-container">
-                        <div><label for="ai-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="ai-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
-                        <div><label for="ai-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="ai-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                        <div><label for="ai-type" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="type">النوع</label><select id="ai-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                        <div><label for="ai-key" class="block mb-2 text-md font-medium text-gray-400" data-translate-key="key">الدرجة</label><select id="ai-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                     </div>
                 </div>
-                <div id="ai-result" class="output-box mt-6 p-4 rounded-lg"><p class="text-gray-400 text-center">اختر مقامًا أو سلمًا لعرض معلومات عنه.</p></div>
+                <div id="ai-result" class="output-box mt-6 p-4 rounded-lg"></div>
             </div>
         </main>
         
         <footer class="text-center text-gray-500 text-sm mt-12 pb-6">
             <div class="flex justify-center gap-6 mb-4">
-                <a href="https://youtube.com/@amrashour5117" target="_blank" title="يوتيوب" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <a href="https://youtube.com/@amrashour5117" target="_blank" title="YouTube" class="text-gray-400 hover:text-white transition-colors duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.887 3.427 0 4.288 0 8.001v7.998c0 3.714.887 4.574 4.385 4.816 3.6.245 11.626.246 15.23 0 3.498-.242 4.385-1.102 4.385-4.816V8.001c0-3.713-.887-4.573-4.385-4.816zM9.625 15.5V7.5l6.5 4-6.5 4z"/></svg>
                 </a>
-                <a href="https://www.instagram.com/rpk_music01?igsh=dXZ1bnczOGw0ZXE5" target="_blank" title="انستجرام" class="text-gray-400 hover:text-white transition-colors duration-300">
+                <a href="https://www.instagram.com/rpk_music01?igsh=dXZ1bnczOGw0ZXE5" target="_blank" title="Instagram" class="text-gray-400 hover:text-white transition-colors duration-300">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.645-.07-4.85s.012-3.585.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
             </div>
-            <p>جميع الحقوق محفوظة © 2025</p>
-            <p>تطوير: <a href="https://github.com/AmrAshour100" target="_blank" class="text-teal-400 hover:underline">عمرو عاشور</a></p>
+            <p data-translate-key="rightsReserved">جميع الحقوق محفوظة © 2025</p>
+            <p><span data-translate-key="developedBy">تطوير:</span> <a href="https://github.com/AmrAshour100" target="_blank" class="text-teal-400 hover:underline">عمرو عاشور</a></p>
         </footer>
     </div>
 
-    <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50">الرجاء نسخ الرابط من شريط العنوان لمشاركته.</div>
+    <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50"></div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const offlineData = {
-                "Major": { description: "السلم الكبير هو أساس الموسيقى الغربية، يتميز بطابعه السعيد، المشرق والبطولي. هو السلم الأكثر شيوعًا في أغاني البوب والموسيقى الكلاسيكية." },
-                "minor": { description: "السلم الصغير (الهارموني) يتميز بطابعه الحزين، الدرامي، والكلاسيكي. يستخدم بكثرة في الموسيقى التي تعبر عن مشاعر الشوق والعمق." },
-                "راست": { description: "مقام الراست هو 'أبو المقامات' ويتميز بالفخامة والوقار والجدية. هو مقام شرقي أصيل يعبر عن الأصالة والقوة.", quarterToneNote: "تتميز الدرجة الثالثة (مثل مي نصف بيمول) والسابعة (مثل سي نصف بيمول) بوجود الربع تون." },
-                "بياتي": { description: "مقام البياتي يعبر عن الشجن والحزن الممزوج بالفرح. له طابع ريفي وشعبي أصيل، ويدخل في الكثير من الأغاني العاطفية والمواويل.", quarterToneNote: "تتميز الدرجة الثانية (مثل ري نصف بيمول) بوجود الربع تون، وهي التي تعطيه طابعه الشجي المميز." },
-                "حجاز": { description: "مقام الحجاز له طابع شرقي صحراوي واضح جدًا. يوحي بالروحانية، الشوق، والحنين. أبعاده المميزة (الثانية الزائدة) تجعله سهل التعرف عليه." },
-                "نهاوند": { description: "مقام النهاوند هو المقابل الشرقي للسلم الصغير (الماينور). يتميز بطابعه الرومانسي، الحالم، والعاطفي الجياش." },
-                "كرد": { description: "مقام الكرد يشبه في طابعه مقام النهاوند لكنه أكثر بساطة وعاطفية مباشرة. يعبر عن مشاعر هادئة، حزينة أو حالمة." },
-                "عجم": { description: "مقام العجم هو المقابل الشرقي للسلم الكبير (الميجور). طابعه هو الفرح، الإشراق، والوضوح، ويستخدم في الأناشيد الوطنية والأغاني المبهجة." },
-                "صبا": { description: "مقام الصبا هو أكثر المقامات حزنًا وأسى. يعبر عن ألم الفراق والأسى العميق. له طابع خاص جدًا ومؤثر للغاية.", quarterToneNote: "يتميز بأبعاده الدقيقة والخاصة التي لا تعتمد على الربع تون الثابت، مما يعطيه طابعه الحزين الفريد." },
-                "سيكاه": { description: "مقام السيكاه هو مقام يوحي بالطرب الأصيل والتمهل. له طابع مريح ومستقر، وكثيرًا ما يستخدم في الموشحات والقصائد.", quarterToneNote: "تتميز درجة ركوزه نفسها بوجود ربع تون (مثل المي نصف بيمول)." }
+            const translations = {
+                ar: {
+                    pageTitle: "أداة السلالم والمقامات | مساعدك الموسيقي", headerTitle: "أداة السلالم والمقامات", headerSubtitle: "مساعدك الموسيقي لتحليل النظريات بسهولة", shareBtn: "شارك الأداة", transposeTitle: "حاسبة الانتقال النغمي (Transpose)", from: "من:", to: "إلى:", type: "النوع", key: "الدرجة", relativeTitle: "مكتشف السلم النسبي (Major/minor)", major: "كبير (Major)", minor: "صغير (Minor)", encyclopediaTitle: "✨ موسوعة المقامات والسلالم", rightsReserved: "جميع الحقوق محفوظة © 2025", developedBy: "تطوير:",
+                    transposeResult: (from, to) => `للإنتقال من <strong class="text-blue-300">${from}</strong> إلى <strong class="text-blue-300">${to}</strong>:`,
+                    semitonesUp: (up) => `▲ ${up} نصف تون صعوداً`, semitonesDown: (down) => `▼ ${down} نصف تون هبوطاً`,
+                    relativeResult: (scale) => `السلم النسبي لـ <strong class="text-blue-300">${scale}</strong>`,
+                    encyclopediaResultTitle: (name) => `معلومات عن: ${name}`, quarterToneTitle: "الربع تون (التشريق):",
+                    initialSelect: "اختر مقامًا أو سلمًا لعرض معلومات عنه.", shareFallback: "الرجاء نسخ الرابط من شريط العنوان لمشاركته.",
+                },
+                en: {
+                    pageTitle: "Scale & Maqam Tool | Your Music Assistant", headerTitle: "Scale & Maqam Tool", headerSubtitle: "Your music assistant for easy theory analysis", shareBtn: "Share Tool", transposeTitle: "Transpose Calculator", from: "From:", to: "To:", type: "Type", key: "Key", relativeTitle: "Relative Scale Finder (Major/minor)", major: "Major", minor: "Minor", encyclopediaTitle: "✨ Scale & Maqam Encyclopedia", rightsReserved: "All Rights Reserved © 2025", developedBy: "Developed by:",
+                    transposeResult: (from, to) => `To transpose from <strong class="text-blue-300">${from}</strong> to <strong class="text-blue-300">${to}</strong>:`,
+                    semitonesUp: (up) => `▲ ${up} semitones up`, semitonesDown: (down) => `▼ ${down} semitones down`,
+                    relativeResult: (scale) => `The relative scale of <strong class="text-blue-300">${scale}</strong> is`,
+                    encyclopediaResultTitle: (name) => `Information about: ${name}`, quarterToneTitle: "Quarter Tone (Tashreeq):",
+                    initialSelect: "Select a scale or maqam to see info.", shareFallback: "Please copy the link from the address bar to share.",
+                }
             };
-            const notes = [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ];
-            const scaleTypes = { "سلالم غربية": [ { name: "Major" }, { name: "minor" } ], "مقامات شرقية": [ { name: "راست" }, { name: "بياتي" }, { name: "حجاز" }, { name: "نهاوند" }, { name: "كرد" }, { name: "عجم" }, { name: "صبا" }, { name: "سيكاه" } ] };
-            
-            const fromTypeSelect = document.getElementById('from-type');
-            const fromKeySelect = document.getElementById('from-key');
-            const toTypeSelect = document.getElementById('to-type');
-            const toKeySelect = document.getElementById('to-key');
-            const transposeResultDiv = document.getElementById('transpose-result');
-            const aiTypeSelect = document.getElementById('ai-type');
-            const aiKeySelect = document.getElementById('ai-key');
-            const aiResultDiv = document.getElementById('ai-result');
-            const relativeScaleSelect = document.getElementById('relative-scale-select');
-            const relativeResultDiv = document.getElementById('relative-result');
-            const majorModeBtn = document.getElementById('major-mode-btn');
-            const minorModeBtn = document.getElementById('minor-mode-btn');
+            const multiLangData = {
+                ar: {
+                    notes: [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ],
+                    scaleTypes: { "سلالم غربية": [ { name: "Major" }, { name: "minor" } ], "مقامات شرقية": [ { name: "راست" }, { name: "بياتي" }, { name: "حجاز" }, { name: "نهاوند" }, { name: "كرد" }, { name: "عجم" }, { name: "صبا" }, { name: "سيكاه" } ] },
+                    offlineData: { "Major":{d:"السلم الكبير هو أساس الموسيقى الغربية، يتميز بطابعه السعيد، المشرق والبطولي."}, "minor":{d:"السلم الصغير (الهارموني) يتميز بطابعه الحزين، الدرامي، والكلاسيكي."}, "راست":{d:"مقام الراست هو 'أبو المقامات' ويتميز بالفخامة والوقار والجدية.", q:"تتميز الدرجة الثالثة (مي نصف بيمول) والسابعة (سي نصف بيمول) بوجود الربع تون."}, "بياتي":{d:"مقام البياتي يعبر عن الشجن والحزن الممزوج بالفرح.", q:"تتميز الدرجة الثانية (ري نصف بيمول) بوجود الربع تون."}, "حجاز":{d:"مقام الحجاز له طابع شرقي صحراوي واضح جدًا. يوحي بالروحانية، الشوق، والحنين."}, "نهاوند":{d:"مقام النهاوند هو المقابل الشرقي للسلم الصغير (الماينور). يتميز بطابعه الرومانسي، الحالم، والعاطفي."}, "كرد":{d:"مقام الكرد يشبه في طابعه مقام النهاوند لكنه أكثر بساطة وعاطفية مباشرة."}, "عجم":{d:"مقام العجم هو المقابل الشرقي للسلم الكبير (الميجور). طابعه هو الفرح، الإشراق، والوضوح."}, "صبا":{d:"مقام الصبا هو أكثر المقامات حزنًا وأسى. يعبر عن ألم الفراق والأسى العميق.", q:"يتميز بأبعاده الدقيقة والخاصة التي لا تعتمد على الربع تون الثابت."}, "سيكاه":{d:"مقام السيكاه هو مقام يوحي بالطرب الأصيل والتمهل.", q:"تتميز درجة ركوزه نفسها بوجود ربع تون (مثل المي نصف بيمول)."} }
+                },
+                en: {
+                    notes: [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ],
+                    scaleTypes: { "Western Scales": [ { name: "Major" }, { name: "minor" } ], "Arabic Maqams": [ { name: "Rast" }, { name: "Bayati" }, { name: "Hijaz" }, { name: "Nahawand" }, { name: "Kurd" }, { name: "Ajam" }, { name: "Saba" }, { name: "Sikah" } ] },
+                    offlineData: { "Major":{d:"The Major scale is the foundation of Western music, characterized by its happy, bright, and heroic mood."}, "minor":{d:"The minor scale (harmonic) is known for its sad, dramatic, and classical feel."}, "Rast":{d:"Maqam Rast is the 'king of maqams,' characterized by grandeur and dignity.", q:"It features quarter tones on the 3rd (e.g., E half-flat) and the 7th degrees (e.g., B half-flat)."}, "Bayati":{d:"Maqam Bayati expresses a blend of melancholy and joy.", q:"It features a quarter tone on the 2nd degree (e.g., D half-flat)."}, "Hijaz":{d:"Maqam Hijaz has a very distinct oriental, desert-like feel. It evokes spirituality and longing."}, "Nahawand":{d:"Maqam Nahawand is the oriental equivalent of the minor scale. It's characterized by its romantic, dreamy mood."}, "Kurd":{d:"Maqam Kurd is similar in mood to Nahawand but is simpler and more direct emotionally."}, "Ajam":{d:"Maqam Ajam is the oriental equivalent of the Major scale. Its character is joyful, bright, and clear."}, "Saba":{d:"Maqam Saba is the most sorrowful and tragic maqam, expressing deep pain of separation and grief.", q:"It's characterized by its unique and precise intervals that don't rely on fixed quarter tones."}, "Sikah":{d:"Maqam Sikah evokes a sense of authentic 'tarab' and deliberation.", q:"Its tonic (root note) itself is a quarter tone (e.g., E half-flat)."} }
+                }
+            };
+            const domElements = { fromTypeSelect: document.getElementById('from-type'), fromKeySelect: document.getElementById('from-key'), toTypeSelect: document.getElementById('to-type'), toKeySelect: document.getElementById('to-key'), transposeResultDiv: document.getElementById('transpose-result'), aiTypeSelect: document.getElementById('ai-type'), aiKeySelect: document.getElementById('ai-key'), aiResultDiv: document.getElementById('ai-result'), relativeScaleSelect: document.getElementById('relative-scale-select'), relativeResultDiv: document.getElementById('relative-result'), majorModeBtn: document.getElementById('major-mode-btn'), minorModeBtn: document.getElementById('minor-mode-btn'), shareBtn: document.getElementById('share-btn'), fallbackMessage: document.getElementById('fallback-message'), langArBtn: document.getElementById('lang-ar'), langEnBtn: document.getElementById('lang-en'),};
+            let currentLanguage = localStorage.getItem('musicToolLang') || 'ar';
             let currentRelativeMode = 'major';
 
-            function getFullName(typeText, keyText) {
-                return `${typeText.startsWith("مقام") ? 'مقام' : 'سلم'} ${typeText} على ${keyText}`;
+            function getFullName(type, key) {
+                return currentLanguage === 'ar' ? `${type.startsWith("مقام") ? 'مقام' : 'سلم'} ${type} على ${key}` : `${key} ${type}`;
             }
 
-            function populateTypeSelect(selectElement) {
-                selectElement.innerHTML = '';
-                for (const groupName in scaleTypes) {
-                    const optgroup = document.createElement('optgroup');
-                    optgroup.label = groupName;
-                    scaleTypes[groupName].forEach(type => {
-                        const option = document.createElement('option');
-                        option.value = type.name;
-                        option.textContent = type.name;
-                        optgroup.appendChild(option);
-                    });
-                    selectElement.appendChild(optgroup);
-                }
+            function populateKeySelect(select, notes) { select.innerHTML = notes.map(n => `<option value="${n.value}">${n.name}</option>`).join(''); }
+            
+            function populateTypeSelect(select, scaleTypes) {
+                select.innerHTML = Object.keys(scaleTypes).map(group => {
+                    const originalGroup = currentLanguage === 'en' ? (group === 'Western Scales' ? 'سلالم غربية' : 'مقامات شرقية') : group;
+                    const originalTypes = multiLangData.ar.scaleTypes[originalGroup];
+                    const options = scaleTypes[group].map((type, i) => `<option value="${originalTypes[i].name}">${type.name}</option>`).join('');
+                    return `<optgroup label="${group}">${options}</optgroup>`;
+                }).join('');
             }
-
-            function populateKeySelect(selectElement) {
-                selectElement.innerHTML = '';
-                notes.forEach(note => {
-                    const option = document.createElement('option');
-                    option.value = note.value;
-                    option.textContent = note.name;
-                    selectElement.appendChild(option);
-                });
-            }
-
-            const westernScalesForRelative = {
-                major: notes.map(n => ({ name: `${n.name} Major`, value: n.value })),
-                minor: notes.map(n => ({ name: `${n.name} minor`, value: n.value }))
-            };
-
-            function populateSimpleSelect(selectElement, scaleArray) {
-                selectElement.innerHTML = '';
-                scaleArray.forEach(scale => {
-                    const option = document.createElement('option');
-                    option.value = scale.value;
-                    option.textContent = scale.name;
-                    selectElement.appendChild(option);
-                });
-            }
-
+            
+            function populateSimpleSelect(select, scales) { select.innerHTML = scales.map(s => `<option value="${s.value}">${s.name}</option>`).join('');}
+            
             function calculateTranspose() {
-                if (!fromKeySelect.options || fromKeySelect.options.length === 0) return;
-                const fromKeyValue = parseInt(fromKeySelect.value);
-                const toKeyValue = parseInt(toKeySelect.value);
-                const fromTypeText = fromTypeSelect.options[fromTypeSelect.selectedIndex].text;
-                const fromKeyText = fromKeySelect.options[fromKeySelect.selectedIndex].text;
-                const toTypeText = toTypeSelect.options[toTypeSelect.selectedIndex].text;
-                const toKeyText = toKeySelect.options[toKeySelect.selectedIndex].text;
-                let difference = toKeyValue - fromKeyValue;
-                const semitonesUp = difference >= 0 ? difference : difference + 12;
-                const semitonesDown = difference <= 0 ? -difference : 12 - difference;
-                const fromFullName = getFullName(fromTypeText, fromKeyText);
-                const toFullName = getFullName(toTypeText, toKeyText);
-                transposeResultDiv.innerHTML = `<div class="text-xl"><p class="mb-2">للإنتقال من <strong class="text-blue-300">${fromFullName}</strong> إلى <strong class="text-blue-300">${toFullName}</strong>:</p><div class="flex flex-col sm:flex-row justify-center gap-4 text-2xl font-bold mt-4"><span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▲ ${semitonesUp} نصف تون صعوداً</span><span class="bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▼ ${semitonesDown} نصف تون هبوطاً</span></div></div>`;
+                const fromKeyVal = parseInt(domElements.fromKeySelect.value), toKeyVal = parseInt(domElements.toKeySelect.value);
+                const fromTypeTxt = domElements.fromTypeSelect.options[domElements.fromTypeSelect.selectedIndex].text, fromKeyTxt = domElements.fromKeySelect.options[domElements.fromKeySelect.selectedIndex].text;
+                const toTypeTxt = domElements.toTypeSelect.options[domElements.toTypeSelect.selectedIndex].text, toKeyTxt = domElements.toKeySelect.options[domElements.toKeySelect.selectedIndex].text;
+                let diff = toKeyVal - fromKeyVal;
+                const up = diff >= 0 ? diff : diff + 12, down = diff <= 0 ? -diff : 12 - diff;
+                const fromFull = getFullName(fromTypeTxt, fromKeyTxt), toFull = getFullName(toTypeTxt, toKeyTxt);
+                domElements.transposeResultDiv.innerHTML = `<div class="text-xl"><p class="mb-2">${translations[currentLanguage].transposeResult(fromFull, toFull)}</p><div class="flex flex-col sm:flex-row justify-center gap-4 text-2xl font-bold mt-4"><span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">${translations[currentLanguage].semitonesUp(up)}</span><span class="bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">${translations[currentLanguage].semitonesDown(down)}</span></div></div>`;
             }
 
             function findRelative() {
-                if (!relativeScaleSelect.options || relativeScaleSelect.options.length === 0) return;
-                const selectedValue = parseInt(relativeScaleSelect.value);
-                const originalName = relativeScaleSelect.options[relativeScaleSelect.selectedIndex].text;
-                let relativeValue, relativeName;
-                if (currentRelativeMode === 'major') {
-                    relativeValue = (selectedValue - 3 + 12) % 12;
-                    relativeName = westernScalesForRelative.minor.find(s => s.value === relativeValue).name;
-                } else {
-                    relativeValue = (selectedValue + 3) % 12;
-                    relativeName = westernScalesForRelative.major.find(s => s.value === relativeValue).name;
-                }
-                relativeResultDiv.innerHTML = `<div class="text-xl"><p>السلم النسبي لـ <strong class="text-blue-300">${originalName}</strong></p><p class="text-3xl font-bold mt-2 text-green-400">${relativeName}</p></div>`;
+                const selVal = parseInt(domElements.relativeScaleSelect.value), origName = domElements.relativeScaleSelect.options[domElements.relativeScaleSelect.selectedIndex].text;
+                const wScales = { major: multiLangData[currentLanguage].notes.map(n => ({ name: `${n.name} Major`, value: n.value })), minor: multiLangData[currentLanguage].notes.map(n => ({ name: `${n.name} minor`, value: n.value })) };
+                let relVal, relName;
+                if (currentRelativeMode === 'major') { relVal = (selVal - 3 + 12) % 12; relName = wScales.minor.find(s => s.value === relVal).name; }
+                else { relVal = (selVal + 3) % 12; relName = wScales.major.find(s => s.value === relVal).name; }
+                domElements.relativeResultDiv.innerHTML = `<div class="text-xl"><p>${translations[currentLanguage].relativeResult(origName)}</p><p class="text-3xl font-bold mt-2 text-green-400">${relName}</p></div>`;
             }
 
             function displayAiInfo() {
-                if (!aiKeySelect.options || aiKeySelect.options.length === 0) return;
-                const scaleType = aiTypeSelect.value;
-                const keyName = aiKeySelect.options[aiKeySelect.selectedIndex].text;
-                const data = offlineData[scaleType];
-                const fullName = getFullName(scaleType, keyName);
+                const typeVal = domElements.aiTypeSelect.value, keyTxt = domElements.aiKeySelect.options[domElements.aiKeySelect.selectedIndex].text;
+                const typeTxt = domElements.aiTypeSelect.options[domElements.aiTypeSelect.selectedIndex].text;
+                const data = multiLangData[currentLanguage].offlineData[typeVal];
+                const full = getFullName(typeTxt, keyTxt);
                 if (data) {
-                    let quarterToneInfo = '';
-                    if (data.quarterToneNote) {
-                        quarterToneInfo = `<h5 class="quarter-tone-title">الربع تون (التشريق):</h5><p>${data.quarterToneNote}</p>`;
-                    }
-                    aiResultDiv.innerHTML = `<div class="text-right w-full ai-output"><h4>معلومات عن: ${fullName}</h4><p>${data.description}</p>${quarterToneInfo}</div>`;
-                } else {
-                    aiResultDiv.innerHTML = `<p class="text-gray-400 text-center">لا توجد معلومات متاحة حاليًا.</p>`;
-                }
+                    let qToneInfo = data.quarterToneNote ? `<h5 class="quarter-tone-title">${translations[currentLanguage].quarterToneTitle}</h5><p>${data.quarterToneNote}</p>` : '';
+                    if (data.q) qToneInfo = `<h5 class="quarter-tone-title">${translations[currentLanguage].quarterToneTitle}</h5><p>${data.q}</p>`;
+                    domElements.aiResultDiv.innerHTML = `<div class="w-full ai-output"><h4 class="text-left rtl:text-right">${translations[currentLanguage].encyclopediaResultTitle(full)}</h4><p class="text-left rtl:text-right">${data.description || data.d}</p>${qToneInfo}</div>`;
+                } else { domElements.aiResultDiv.innerHTML = `<p class="text-gray-400 text-center">${translations[currentLanguage].initialSelect}</p>`; }
             }
 
             function switchRelativeMode(mode) {
                 currentRelativeMode = mode;
+                const wScales = { major: multiLangData[currentLanguage].notes.map(n => ({ name: `${n.name} Major`, value: n.value })), minor: multiLangData[currentLanguage].notes.map(n => ({ name: `${n.name} minor`, value: n.value })) };
                 if (mode === 'major') {
-                    majorModeBtn.classList.add('bg-blue-500', 'text-white');
-                    majorModeBtn.classList.remove('text-gray-300');
-                    minorModeBtn.classList.remove('bg-blue-500', 'text-white');
-                    minorModeBtn.classList.add('text-gray-300');
-                    populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
+                    domElements.majorModeBtn.classList.add('bg-blue-500', 'text-white', 'active'); domElements.majorModeBtn.classList.remove('text-gray-300');
+                    domElements.minorModeBtn.classList.remove('bg-blue-500', 'text-white', 'active'); domElements.minorModeBtn.classList.add('text-gray-300');
+                    populateSimpleSelect(domElements.relativeScaleSelect, wScales.major);
                 } else {
-                    minorModeBtn.classList.add('bg-blue-500', 'text-white');
-                    minorModeBtn.classList.remove('text-gray-300');
-                    majorModeBtn.classList.remove('bg-blue-500', 'text-white');
-                    majorModeBtn.classList.add('text-gray-300');
-                    populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.minor);
+                    domElements.minorModeBtn.classList.add('bg-blue-500', 'text-white', 'active'); domElements.minorModeBtn.classList.remove('text-gray-300');
+                    domElements.majorModeBtn.classList.remove('bg-blue-500', 'text-white', 'active'); domElements.majorModeBtn.classList.add('text-gray-300');
+                    populateSimpleSelect(domElements.relativeScaleSelect, wScales.minor);
                 }
                 findRelative();
             }
             
-            // Initial Setup
-            populateTypeSelect(fromTypeSelect);
-            populateTypeSelect(toTypeSelect);
-            populateTypeSelect(aiTypeSelect);
-            populateKeySelect(fromKeySelect);
-            populateKeySelect(toKeySelect);
-            populateKeySelect(aiKeySelect);
-            populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
+            function setLanguage(lang) {
+                currentLanguage = lang;
+                localStorage.setItem('musicToolLang', lang);
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                domElements.langArBtn.classList.toggle('active', lang === 'ar');
+                domElements.langEnBtn.classList.toggle('active', lang === 'en');
+                document.querySelectorAll('[data-translate-key]').forEach(el => { const key = el.dataset.translateKey; if (translations[lang]?.[key]) el.textContent = translations[lang][key]; });
+                
+                const data = multiLangData[lang];
+                populateTypeSelect(domElements.fromTypeSelect, data.scaleTypes);
+                populateTypeSelect(domElements.toTypeSelect, data.scaleTypes);
+                populateTypeSelect(domElements.aiTypeSelect, data.scaleTypes);
+                populateKeySelect(domElements.fromKeySelect, data.notes);
+                populateKeySelect(domElements.toKeySelect, data.notes);
+                populateKeySelect(domElements.aiKeySelect, data.notes);
+                
+                switchRelativeMode(currentRelativeMode);
+                calculateTranspose();
+                displayAiInfo();
+            }
 
-            [fromTypeSelect, fromKeySelect, toTypeSelect, toKeySelect].forEach(sel => { sel.addEventListener('change', calculateTranspose); });
-            [aiTypeSelect, aiKeySelect].forEach(sel => { sel.addEventListener('change', displayAiInfo); });
-            relativeScaleSelect.addEventListener('change', findRelative);
-            majorModeBtn.addEventListener('click', () => switchRelativeMode('major'));
-            minorModeBtn.addEventListener('click', () => switchRelativeMode('minor'));
-            
-            const shareBtn = document.getElementById('share-btn');
-            const fallbackMessage = document.getElementById('fallback-message');
-            shareBtn.addEventListener('click', () => {
+            Object.values(domElements).forEach(el => { if (el.tagName === 'SELECT') el.addEventListener('change', () => { calculateTranspose(); displayAiInfo(); findRelative(); }); });
+            domElements.majorModeBtn.addEventListener('click', () => switchRelativeMode('major'));
+            domElements.minorModeBtn.addEventListener('click', () => switchRelativeMode('minor'));
+            domElements.langArBtn.addEventListener('click', () => setLanguage('ar'));
+            domElements.langEnBtn.addEventListener('click', () => setLanguage('en'));
+            domElements.shareBtn.addEventListener('click', () => {
                 if (navigator.share) {
-                    navigator.share({
-                        title: 'أداة السلالم والمقامات',
-                        text: 'اكتشفت أداة موسيقية مجانية ورائعة للمقامات والسلالم، جربها!',
-                        url: window.location.href
-                    }).catch(console.error);
+                    navigator.share({ title: translations[currentLanguage].pageTitle, text: 'اكتشفت أداة موسيقية مجانية ورائعة للمقامات والسلالم، جربها!', url: window.location.href }).catch(console.error);
                 } else {
-                    fallbackMessage.classList.remove('hidden');
-                    setTimeout(() => { fallbackMessage.classList.add('hidden'); }, 3000);
+                    domElements.fallbackMessage.textContent = translations[currentLanguage].shareFallback;
+                    domElements.fallbackMessage.classList.remove('hidden');
+                    setTimeout(() => { domElements.fallbackMessage.classList.add('hidden'); }, 3000);
                 }
             });
 
-            calculateTranspose();
-            displayAiInfo();
-            findRelative();
+            setLanguage(currentLanguage);
         });
     </script>
 </body>
