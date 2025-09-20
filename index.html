@@ -15,7 +15,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-XXXXXXXXXX');
     </script>
 
@@ -24,49 +23,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #111827; /* bg-gray-900 */
-        }
-        .output-box {
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            min-height: 100px;
-            transition: all 0.3s ease;
-        }
-        select, .output-box, button {
-            -webkit-tap-highlight-color: transparent;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-        }
-        .ai-output h4 {
-            font-size: 1.25rem; /* text-xl */
-            font-weight: 600; /* font-semibold */
-            color: #93c5fd; /* text-blue-300 */
-            margin-bottom: 0.5rem;
-        }
-         .ai-output p {
-            font-size: 1.125rem; /* text-lg */
-            line-height: 1.8;
-        }
-        .ai-output .quarter-tone-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: #5eead4; /* text-teal-300 */
-            margin-top: 1rem;
-            margin-bottom: 0.25rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        /* Logo Icon Style */
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            fill: #60a5fa; /* text-blue-400 */
-        }
+        body { font-family: 'Cairo', sans-serif; background-color: #111827; }
+        .output-box { background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); min-height: 100px; transition: all 0.3s ease; }
+        select, .output-box, button { -webkit-tap-highlight-color: transparent; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
+        .ai-output h4 { font-size: 1.25rem; font-weight: 600; color: #93c5fd; margin-bottom: 0.5rem; }
+        .ai-output p { font-size: 1.125rem; line-height: 1.8; }
+        .ai-output .quarter-tone-title { font-size: 1.125rem; font-weight: 600; color: #5eead4; margin-top: 1rem; margin-bottom: 0.25rem; padding-top: 0.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .logo-icon { width: 40px; height: 40px; fill: #60a5fa; }
     </style>
 </head>
 <body class="text-white">
@@ -75,61 +39,40 @@
         <header class="text-center mb-8">
             <div class="flex items-center justify-center gap-3">
                 <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4V3h-6z"/></svg>
-                <h1 class="text-3xl sm:text-4xl font-bold text-blue-400">
-                    أداة السلالم والمقامات
-                </h1>
+                <h1 class="text-3xl sm:text-4xl font-bold text-blue-400">أداة السلالم والمقامات</h1>
             </div>
             <p class="text-gray-400 mt-2 text-lg">مساعدك الموسيقي لتحليل النظريات بسهولة</p>
         </header>
 
-        <!-- Share Button -->
         <div class="text-center mb-8">
             <button id="share-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-5 rounded-full transition duration-300 flex items-center gap-2 mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" /></svg>
                 <span>شارك الأداة</span>
             </button>
         </div>
 
         <main class="space-y-8">
-            <!-- Transpose Calculator -->
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
                 <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3">حاسبة الانتقال النغمي (Transpose)</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                    <!-- "FROM" SECTION -->
                     <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
                         <h3 class="text-xl font-semibold text-center mb-4 text-gray-300">من:</h3>
                         <div class="grid-container">
-                            <div>
-                                <label for="from-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label>
-                                <select id="from-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                            </div>
-                            <div>
-                                <label for="from-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label>
-                                <select id="from-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                            </div>
+                            <div><label for="from-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="from-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                            <div><label for="from-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="from-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                         </div>
                     </div>
-                     <!-- "TO" SECTION -->
                     <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700">
                         <h3 class="text-xl font-semibold text-center mb-4 text-gray-300">إلى:</h3>
                         <div class="grid-container">
-                             <div>
-                                <label for="to-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label>
-                                <select id="to-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                            </div>
-                            <div>
-                                <label for="to-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label>
-                                <select id="to-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                            </div>
+                             <div><label for="to-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="to-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                            <div><label for="to-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="to-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                         </div>
                     </div>
                 </div>
                 <div id="transpose-result" class="output-box mt-6 p-4 rounded-lg text-center flex items-center justify-center"></div>
             </div>
 
-            <!-- Relative Scale Finder -->
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
                 <h2 class="text-2xl font-semibold mb-5 text-center text-blue-300 border-b-2 border-gray-700 pb-3">مكتشف السلم النسبي (Major/minor)</h2>
                 <div class="flex justify-center mb-4">
@@ -142,24 +85,15 @@
                 <div id="relative-result" class="output-box mt-6 p-4 rounded-lg text-center flex items-center justify-center"></div>
             </div>
 
-            <!-- OFFLINE AI Assistant -->
             <div class="bg-gray-800 p-6 rounded-2xl shadow-lg border-2 border-indigo-500/50">
                 <h2 class="text-2xl font-semibold mb-5 text-center text-indigo-300 border-b-2 border-gray-700 pb-3">✨ موسوعة المقامات والسلالم</h2>
                 <div class="bg-gray-900/50 p-4 rounded-lg border border-gray-700 max-w-lg mx-auto">
                      <div class="grid-container">
-                        <div>
-                            <label for="ai-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label>
-                            <select id="ai-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                        </div>
-                        <div>
-                            <label for="ai-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label>
-                            <select id="ai-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select>
-                        </div>
+                        <div><label for="ai-type" class="block mb-2 text-md font-medium text-gray-400">النوع</label><select id="ai-type" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
+                        <div><label for="ai-key" class="block mb-2 text-md font-medium text-gray-400">الدرجة</label><select id="ai-key" class="w-full bg-gray-700 text-white border-2 border-gray-600 rounded-lg p-3 text-lg focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"></select></div>
                     </div>
                 </div>
-                <div id="ai-result" class="output-box mt-6 p-4 rounded-lg">
-                    <p class="text-gray-400 text-center">اختر مقامًا أو سلمًا لعرض معلومات عنه.</p>
-                </div>
+                <div id="ai-result" class="output-box mt-6 p-4 rounded-lg"><p class="text-gray-400 text-center">اختر مقامًا أو سلمًا لعرض معلومات عنه.</p></div>
             </div>
         </main>
         
@@ -169,13 +103,9 @@
         </footer>
     </div>
 
-    <!-- Fallback message for Share API -->
-    <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50">
-        الرجاء نسخ الرابط من شريط العنوان لمشاركته.
-    </div>
+    <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50">الرجاء نسخ الرابط من شريط العنوان لمشاركته.</div>
 
     <script>
-        // --- OFFLINE DATA ---
         const offlineData = {
             "Major": { description: "السلم الكبير هو أساس الموسيقى الغربية، يتميز بطابعه السعيد، المشرق والبطولي. هو السلم الأكثر شيوعًا في أغاني البوب والموسيقى الكلاسيكية." },
             "minor": { description: "السلم الصغير (الهارموني) يتميز بطابعه الحزين، الدرامي، والكلاسيكي. يستخدم بكثرة في الموسيقى التي تعبر عن مشاعر الشوق والعمق." },
@@ -190,6 +120,7 @@
         };
         const notes = [ { name: 'C', value: 0 }, { name: 'C# / Db', value: 1 }, { name: 'D', value: 2 }, { name: 'D# / Eb', value: 3 }, { name: 'E', value: 4 }, { name: 'F', value: 5 }, { name: 'F# / Gb', value: 6 }, { name: 'G', value: 7 }, { name: 'G# / Ab', value: 8 }, { name: 'A', value: 9 }, { name: 'A# / Bb', value: 10 }, { name: 'B', value: 11 } ];
         const scaleTypes = { "سلالم غربية": [ { name: "Major" }, { name: "minor" } ], "مقامات شرقية": [ { name: "راست" }, { name: "بياتي" }, { name: "حجاز" }, { name: "نهاوند" }, { name: "كرد" }, { name: "عجم" }, { name: "صبا" }, { name: "سيكاه" } ] };
+        
         const fromTypeSelect = document.getElementById('from-type');
         const fromKeySelect = document.getElementById('from-key');
         const toTypeSelect = document.getElementById('to-type');
@@ -203,6 +134,7 @@
         const majorModeBtn = document.getElementById('major-mode-btn');
         const minorModeBtn = document.getElementById('minor-mode-btn');
         let currentRelativeMode = 'major';
+
         function displayAiInfo() {
             const scaleType = aiTypeSelect.value;
             const keyName = aiKeySelect.options[aiKeySelect.selectedIndex].text;
@@ -218,6 +150,7 @@
                 aiResultDiv.innerHTML = `<p class="text-gray-400 text-center">لا توجد معلومات متاحة حاليًا.</p>`;
             }
         }
+
         function populateTypeSelect(selectElement) {
             selectElement.innerHTML = '';
             for (const groupName in scaleTypes) {
@@ -232,6 +165,7 @@
                 selectElement.appendChild(optgroup);
             }
         }
+
         function populateKeySelect(selectElement) {
             selectElement.innerHTML = '';
             notes.forEach(note => {
@@ -241,7 +175,11 @@
                 selectElement.appendChild(option);
             });
         }
-        function getFullName(typeText, keyText) { return `${typeText.startsWith("مقام") ? 'مقام' : 'سلم'} ${typeText} على ${keyText}`; }
+
+        function getFullName(typeText, keyText) {
+            return `${typeText.startsWith("مقام") ? 'مقام' : 'سلم'} ${typeText} على ${keyText}`;
+        }
+
         function calculateTranspose() {
             const fromKeyValue = parseInt(fromKeySelect.value);
             const toKeyValue = parseInt(toKeySelect.value);
@@ -256,7 +194,12 @@
             const toFullName = getFullName(toTypeText, toKeyText);
             transposeResultDiv.innerHTML = `<div class="text-xl"><p class="mb-2">للإنتقال من <strong class="text-blue-300">${fromFullName}</strong> إلى <strong class="text-blue-300">${toFullName}</strong>:</p><div class="flex flex-col sm:flex-row justify-center gap-4 text-2xl font-bold mt-4"><span class="bg-green-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▲ ${semitonesUp} نصف تون صعوداً</span><span class="bg-red-500 bg-opacity-80 text-white px-4 py-2 rounded-lg">▼ ${semitonesDown} نصف تون هبوطاً</span></div></div>`;
         }
-        const westernScalesForRelative = { major: notes.map(n => ({ name: `${n.name} Major`, value: n.value })), minor: notes.map(n => ({ name: `${n.name} minor`, value: n.value })) };
+
+        const westernScalesForRelative = {
+            major: notes.map(n => ({ name: `${n.name} Major`, value: n.value })),
+            minor: notes.map(n => ({ name: `${n.name} minor`, value: n.value }))
+        };
+
         function populateSimpleSelect(selectElement, scaleArray) {
             selectElement.innerHTML = '';
             scaleArray.forEach(scale => {
@@ -266,6 +209,7 @@
                 selectElement.appendChild(option);
             });
         }
+
         function findRelative() {
             const selectedValue = parseInt(relativeScaleSelect.value);
             let relativeValue, relativeName, originalName;
@@ -279,6 +223,7 @@
             }
             relativeResultDiv.innerHTML = `<div class="text-xl"><p>السلم النسبي لـ <strong class="text-blue-300">${originalName}</strong></p><p class="text-3xl font-bold mt-2 text-green-400">${relativeName}</p></div>`;
         }
+
         function switchRelativeMode(mode) {
             currentRelativeMode = mode;
             if (mode === 'major') {
@@ -294,6 +239,7 @@
             }
             updateRelativeSelect();
         }
+
         function updateRelativeSelect() {
             if (currentRelativeMode === 'major') {
                 populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
@@ -302,6 +248,7 @@
             }
             findRelative();
         }
+
         function setupUI() {
             populateTypeSelect(fromTypeSelect);
             populateTypeSelect(toTypeSelect);
@@ -309,4 +256,40 @@
             populateKeySelect(toKeySelect);
             [fromTypeSelect, fromKeySelect, toTypeSelect, toKeySelect].forEach(sel => { sel.addEventListener('change', calculateTranspose); });
             calculateTranspose();
-            populateTypeSe
+
+            populateTypeSelect(aiTypeSelect);
+            populateKeySelect(aiKeySelect);
+            [aiTypeSelect, aiKeySelect].forEach(sel => { sel.addEventListener('change', displayAiInfo); });
+            displayAiInfo();
+
+            updateRelativeSelect();
+            relativeScaleSelect.addEventListener('change', findRelative);
+            majorModeBtn.addEventListener('click', () => switchRelativeMode('major'));
+            minorModeBtn.addEventListener('click', () => switchRelativeMode('minor'));
+        }
+
+        function setupShareButton() {
+            const shareBtn = document.getElementById('share-btn');
+            const fallbackMessage = document.getElementById('fallback-message');
+            shareBtn.addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'أداة السلالم والمقامات',
+                        text: 'اكتشفت أداة موسيقية مجانية ورائعة للمقامات والسلالم، جربها!',
+                        url: window.location.href
+                    }).catch(console.error);
+                } else {
+                    fallbackMessage.classList.remove('hidden');
+                    setTimeout(() => { fallbackMessage.classList.add('hidden'); }, 3000);
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupUI();
+            setupShareButton();
+        });
+    </script>
+</body>
+                                                                                                                                              </html>
+                    
