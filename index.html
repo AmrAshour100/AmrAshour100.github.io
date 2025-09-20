@@ -98,18 +98,17 @@
         </main>
         
         <footer class="text-center text-gray-500 text-sm mt-12 pb-6">
-    <!-- Social Media Links -->
-    <div class="flex justify-center gap-6 mb-4">
-        <a href="!!!  https://youtube.com/@amrashour5117 !!!" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
-            <!-- YouTube Icon SVG -->
-        </a>
-        <a href="!!! https://www.instagram.com/rpk_music01?igsh=dXZ1bnczOGw0ZXE5 !!!" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-300">
-            <!-- Instagram Icon SVG -->
-        </a>
-    </div>
-    <p>جميع الحقوق محفوظة © 2025</p>
-    <p>تطوير: <a href="[https://github.com/AmrAshour100](https://github.com/AmrAshour100)" target="_blank" class="text-teal-400 hover:underline">عمرو عاشور</a></p>
-</footer>
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="https://youtube.com/@amrashour5117" target="_blank" title="يوتيوب" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.887 3.427 0 4.288 0 8.001v7.998c0 3.714.887 4.574 4.385 4.816 3.6.245 11.626.246 15.23 0 3.498-.242 4.385-1.102 4.385-4.816V8.001c0-3.713-.887-4.573-4.385-4.816zM9.625 15.5V7.5l6.5 4-6.5 4z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/rpk_music01?igsh=dXZ1bnczOGw0ZXE5" target="_blank" title="انستجرام" class="text-gray-400 hover:text-white transition-colors duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.645-.07-4.85s.012-3.585.07-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+            </div>
+            <p>جميع الحقوق محفوظة © 2025</p>
+            <p>تطوير: <a href="https://github.com/AmrAshour100" target="_blank" class="text-teal-400 hover:underline">عمرو عاشور</a></p>
+        </footer>
     </div>
 
     <div id="fallback-message" class="hidden fixed bottom-5 left-1/2 -translate-x-1/2 bg-gray-700 text-white px-6 py-3 rounded-lg shadow-lg z-50">الرجاء نسخ الرابط من شريط العنوان لمشاركته.</div>
@@ -253,52 +252,4 @@
             if (currentRelativeMode === 'major') {
                 populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.major);
             } else {
-                populateSimpleSelect(relativeScaleSelect, westernScalesForRelative.minor);
-            }
-            findRelative();
-        }
-
-        function setupUI() {
-            populateTypeSelect(fromTypeSelect);
-            populateTypeSelect(toTypeSelect);
-            populateKeySelect(fromKeySelect);
-            populateKeySelect(toKeySelect);
-            [fromTypeSelect, fromKeySelect, toTypeSelect, toKeySelect].forEach(sel => { sel.addEventListener('change', calculateTranspose); });
-            calculateTranspose();
-
-            populateTypeSelect(aiTypeSelect);
-            populateKeySelect(aiKeySelect);
-            [aiTypeSelect, aiKeySelect].forEach(sel => { sel.addEventListener('change', displayAiInfo); });
-            displayAiInfo();
-
-            updateRelativeSelect();
-            relativeScaleSelect.addEventListener('change', findRelative);
-            majorModeBtn.addEventListener('click', () => switchRelativeMode('major'));
-            minorModeBtn.addEventListener('click', () => switchRelativeMode('minor'));
-        }
-
-        function setupShareButton() {
-            const shareBtn = document.getElementById('share-btn');
-            const fallbackMessage = document.getElementById('fallback-message');
-            shareBtn.addEventListener('click', () => {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'أداة السلالم والمقامات',
-                        text: 'اكتشفت أداة موسيقية مجانية ورائعة للمقامات والسلالم، جربها!',
-                        url: window.location.href
-                    }).catch(console.error);
-                } else {
-                    fallbackMessage.classList.remove('hidden');
-                    setTimeout(() => { fallbackMessage.classList.add('hidden'); }, 3000);
-                }
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            setupUI();
-            setupShareButton();
-        });
-    </script>
-</body>
-                                                                                                                                              </html>
-                    
+                populateSimpleSelec
